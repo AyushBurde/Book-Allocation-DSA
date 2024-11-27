@@ -5,41 +5,42 @@ using namespace std;
 
 
 
-int isValid(vector<int> &arr, int n, int m , int maxAllowedPages) {
-    int students =1 , pages= 0 ;
+int isPossible(vector<int> &arr, int n, int m , int maxAllowedPages) { //O(n)
+    int painter =1 , time= 0 ;
 
     for (int i =0; i<n; i++){
         if(arr[i]> maxAllowedPages){
             return false;
         }
 
-        if(pages + arr[i] <= maxAllowedPages){
-            pages = pages+arr[i];
+        if(time + arr[i] <= maxAllowedPages){
+            time = time+arr[i];
         } else {
-            students ++;
-            pages = arr[i]; 
+            painter ++;
+            time = arr[i]; 
         }
     }
 
-    return students > m ? false : true;
+    return painter > m ? false : true;
 }
-int allocateBooks(vector<int> &arr, int n, int m ){
+int minTimeToPaint(vector<int> &arr, int n, int m ){
     if(m>n){  // checking if our students is higher than the no. of books
         return -1;
     }
 
-    int sum =0; // finding sums of all arrays
-    for (int i =0; i<n ; i++) {
+    int sum =0 , maxVal = INT8_MIN; // Finding the maximum no. 
+    for (int i =0; i<n ; i++) { 
         sum=sum+arr[i];
+        maxVal = max(maxVal, arr[i]);
     }
 
     int ans= -1 ;
-    int st=0 , end =sum ; // range of possible ans
+    int st= maxVal , end =sum ; // range of possible ans
 
-    while( st<=end ){
+    while( st<=end ){ // log(sum) * n 
         int mid = st + (end-st)/2;
 
-        if(isValid(arr, n , m , mid)){ // if valid then check on left sife for more small val
+        if(isPossible(arr, n , m , mid)){ // if valid then check on left sife for more small val
             ans= mid;
             end=mid-1;
         } else { // if not then check on the right 
@@ -52,8 +53,8 @@ return ans;
 
 int main (){
 
-    vector<int> arr = {2,1,3,4};
+    vector<int> arr = {40,30,10,20};
     int n =4 , m=2;
-    cout<< allocateBooks(arr, n , m );
+    cout<< minTimeToPaint(arr, n , m );
     return 0;
 }
