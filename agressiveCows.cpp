@@ -47,3 +47,4 @@ cout<< getDistance(arr , N , C);
     return 0;
 }
 
+
