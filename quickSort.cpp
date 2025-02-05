@@ -10,7 +10,7 @@ int partition(vector<int> &arr , int st , int end ){
         if(arr[j]<= pivot){
             idx++ ; 
             swap(arr[j] , arr[idx]);
-        }
+        }     
     }
     //for placing our pivot 
     idx++ ; 

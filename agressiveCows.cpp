@@ -22,11 +22,12 @@ bool isPossible (vector<int> &arr, int N , int C, int mid){ // placing the cows
 
 
 int getDistance (vector<int> &arr, int N , int C){
-    // st=1 , end = maxVal - minVal;
-    sort(arr.begin(), arr.end());
-    int st=1 , end= arr[N-1] - arr[0], ans = -1 ;
+    
+    sort(arr.begin(), arr.end()); // sort the entire array for simplicity (nlognn )
+    int st=1 , end= arr[N-1] - arr[0] ; // this is total range of our stalls 
+    int  ans = -1 ;
 
-    while(st<= end ){
+    while(st<= end ){ // (log(Range))  * N (N is ifPsbl ki tc)
         int mid = st+ (end-st)/2;
 
         if(isPossible(arr, N , C , mid) ) { // if yes go to right 
